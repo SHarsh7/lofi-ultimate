@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: "Hardpixel";
+  src: url("https://db.onlinewebfonts.com/t/46ed1daa8d58529ffb76987f884f2b03.eot"); /* IE9*/
+  src: url("https://db.onlinewebfonts.com/t/46ed1daa8d58529ffb76987f884f2b03.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */
+      url("https://db.onlinewebfonts.com/t/46ed1daa8d58529ffb76987f884f2b03.woff2")
+      format("woff2"),
+    /* chrome firefox */
+      url("https://db.onlinewebfonts.com/t/46ed1daa8d58529ffb76987f884f2b03.woff")
+      format("woff"),
+    /* chrome firefox */
+      url("https://db.onlinewebfonts.com/t/46ed1daa8d58529ffb76987f884f2b03.ttf")
+      format("truetype"),
+    /* chrome firefox opera Safari, Android, iOS 4.2+*/
+      url("https://db.onlinewebfonts.com/t/46ed1daa8d58529ffb76987f884f2b03.svg#Hardpixel")
+      format("svg"); /* iOS 4.1- */
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: none;
+  font-family: "Hardpixel";
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
+html{
+  color: aliceblue;
+} 
+.App{
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  min-width: 100%;
+  min-height: 100%;}
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+  min-width: 100%;
+  min-height: 100%;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.btn{
+  font-family: "Hardpixel";
+  font-size: 50px;
   color: white;
+  background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor: pointer;
+}
+.musicPlayer{
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+.invisible{
+  visibility: hidden;
+}
+.container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+.typewriter  {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.4em solid white; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 2 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 2s steps(30, end),
+    blink-caret .75s step-end infinite;
+} 
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: white; }
 }
