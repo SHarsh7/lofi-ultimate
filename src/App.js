@@ -5,6 +5,7 @@ import { AiOutlinePause } from "react-icons/ai";
 import { MdOutlineSkipPrevious, MdOutlineSkipNext } from "react-icons/md";
 import YouTube from "react-youtube";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
 //Link of youtube api
 const YOUTUBE_PLAYLIST_ITEMS_API = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLrG0ChxS2fPHLgql1GirP9GLhWRo_2L7K&maxResults=50&key=${process.env.REACT_APP_API_KEY}`;
@@ -22,12 +23,11 @@ function App() {
   //change the plying song
   const [curr, setCurr] = useState(`jFFnCSUdy9Y`);
   //plying or pause
-  const [isPlaying,setIsPlaying]=useState(false
-);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   //hook to change the bg on song change
   useEffect(() => {
-    let rand = Math.floor(Math.random() * (randomGif.length + 1));
+    let rand = Math.floor(Math.random() * (randomGif.length - 1 + 1));
     SetGif(randomGif[rand]);
   }, [curr]);
 
@@ -44,7 +44,7 @@ function App() {
           code: obj.snippet.resourceId.videoId,
         });
       });
-      setCurr(videoId[5]);
+      setCurr(videoId[2]);
     }
     fetchData();
   }, []);
@@ -65,65 +65,80 @@ function App() {
   };
 
   const onChangeVideo = () => {
+    setPlayer(null);
     const rand = Math.floor(Math.random() * (50 + 1));
     setCurr(videoId[rand]);
-    player.playVideo();
+    onReady();
     onPlayVideo();
-    setIsPlaying(true);
   };
-  const opts = {
-    height: '390',
-    width: '640',
-    playerVars: {
 
-      autoplay: 1,
-    }
-  };
 
   return (
     <>
-      <YouTube className="invisible" opts={opts} videoId={curr.code} onReady={onReady} onEnd={onChangeVideo} />
+      <YouTube
+        className="invisible"
+        videoId={curr.code}
+        onReady={onReady}
+        onEnd={onChangeVideo}
+      />
       <div
         className="App"
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL + `./assets/${gif}`})`,
           backgroundRepeat: `no-repeat`,
           backgroundSize: `cover`,
-          backgroundPosition: `center`,
+          backgroundPosition: `fixed`,
         }}
       >
-        <div className="container">
-          <div className="child">
+          <div className="container">
             {ready ? (
               <h2 className="typewriter">{curr.title}...</h2>
             ) : (
-              <h2>Buffering...</h2>
+              <h2 className="typewriter">Buffering...</h2>
+            )}
+              <div>
+            <Button
+              variant="outline-light"
+              className="btn"
+              onClick={onChangeVideo}
+              disabled={!player}
+            >
+              <MdOutlineSkipPrevious></MdOutlineSkipPrevious>
+            </Button>
+
+            {isPlaying ? (
+              <Button
+                variant="outline-light"
+                className="btn"
+                onClick={onPauseVideo}
+                disabled={!player}
+              >
+                <AiOutlinePause></AiOutlinePause>
+              </Button>
+            ) : (
+              <Button
+                variant="outline-light"
+                className="btn"
+                onClick={onPlayVideo}
+                disabled={!player}
+              >
+                <FiPlay></FiPlay>
+              </Button>
             )}
 
-            <button className="btn" onClick={onChangeVideo}>
-              <MdOutlineSkipPrevious></MdOutlineSkipPrevious>
-            </button>
-
-
-            {
-              isPlaying?(<button className="btn" onClick={onPauseVideo} disabled={!player}>
-              <AiOutlinePause></AiOutlinePause>
-            </button>) :
-              ( <button className="btn" onClick={onPlayVideo}>
-              <FiPlay></FiPlay>
-            </button>)
-            }
-            
-           
-            
-            <button className="btn" onClick={onChangeVideo}>
+            <Button
+              variant="outline-light"
+              className="btn"
+              onClick={onChangeVideo}
+              disabled={!player}
+            >
               <MdOutlineSkipNext></MdOutlineSkipNext>
-            </button>
+            </Button>
 
             {/* <VolumeBar></VolumeBar> */}
           </div>
         </div>
-      </div>
+        </div>
     </>
   );
 }
